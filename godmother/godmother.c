@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+//b0ctf{my_d13t_is_ru1ned_1_h0p3_y0ure_happy}
+int test[] = {0x78, 0x2a, 0x79, 0x6e, 0x7c, 0x61, 0x77, 0x63, 0x45, 0x7e, 0x2b, 0x29, 0x6e, 0x45, 0x73, 0x69, 0x45, 0x68, 0x6f, 0x2b, 0x74, 0x7f, 0x7e, 0x45, 0x2b, 0x45, 0x72, 0x2a, 0x6a, 0x29, 0x45, 0x63, 0x2a, 0x6f, 0x68, 0x7f, 0x45, 0x72, 0x7b, 0x6a, 0x6a, 0x63, 0x67};
+
+char scramble(char input) {
+	return input ^ 0x1a;
+}
+
+int main() {
+	char * input = (char *)malloc(44 * sizeof(char));
+	memset(input, 0, 44);
+	printf("Welcome to Friar's Fat Boy! May I take your order?\n");
+	scanf("%43s", input);
+	for (int i = 0; i < 43; i++) {
+		if (scramble(*input) == test[i]) {
+			printf("Order 0x%x Taken.\n", scramble(*input));
+		} else {
+			printf("Sorry, we don't have 0x%x on the menu!\n", scramble(*input));
+			exit(0);
+		}
+		input++;
+	}
+	printf("Your order is ready!\n");
+}
+

@@ -1,0 +1,21 @@
+FROM ubuntu:18.04
+
+RUN apt-get update -y && \
+    apt-get install patchelf
+
+ENV USER dynamic_type_librarii
+WORKDIR /home/$USER
+RUN useradd $USER
+
+COPY dynamic_type_librarii /home/$USER/
+COPY libc.so.6 /home/$USER/
+COPY ld-linux-x86-64.so.2 /home/$USER
+RUN bash -c 'echo "sun{this_is_a_dummy_flag}" > /home/$USER/flag.txt'
+WORKDIR /home/$USER/lib
+RUN ln -s /lib64/ld-linux-x86-64.so.2 ld-2.28.so
+WORKDIR /home/$USER
+
+RUN chown -R root:$USER /home/$USER
+RUN chmod -R 550 /home/$USER
+
+CMD sleep 5

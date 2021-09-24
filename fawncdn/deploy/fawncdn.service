@@ -1,0 +1,9 @@
+[Unit]
+Description=fawncdn
+
+[Service]
+WorkingDirectory=/home/b01lers/circle-city-ctf-2021/pwn/fawncdn/deploy
+ExecStart=/usr/bin/docker-compose up --project fawncdn --build
+
+[Install]
+WantedBy=multi-user.target

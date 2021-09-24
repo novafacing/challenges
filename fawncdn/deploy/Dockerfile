@@ -1,0 +1,62 @@
+# We can build from whatever version
+# we want. 20.04 is most typical now.
+
+# FROM ubuntu:18.04
+FROM ubuntu:20.04
+
+# Install any software needed to
+# build the challenge
+
+RUN apt-get update
+RUN apt-get install -y xinetd
+RUN apt-get update
+RUN apt-get install -y build-essential
+RUN apt-get install -y gcc-multilib
+
+# Change example to the name of your challenge.
+
+ENV USER fawncdn
+WORKDIR /home/$USER
+RUN useradd $USER
+
+# This adds the critical files.
+
+
+# The xinetd configuration provides run options
+# but is very boilerplate. See below. 
+COPY ./deploy/$USER.xinetd /etc/xinetd.d/$USER
+
+# wrapper.sh wraps the executable by 
+# `cd`ing to the right place
+
+COPY ./deploy/wrapper.sh /home/$USER/
+
+# This assumes a C file but works perfectly OK
+# with go/C++/rust, just install the right compiler
+COPY ./src/$USER.c /home/$USER/
+
+# This makefile provides the build and outputs
+# the challenge binary (see below)
+COPY ./src/$USER.Makefile /home/$USER/Makefile
+
+# We don't want to forget the flag!
+COPY ./solve/fawn.jpg /home/$USER/fawn.jpg
+
+# This runs make in the challenge dir
+RUN make -C /home/$USER/
+
+# Set permissions. Be *VERY* careful
+# about changing this!
+RUN chown -R root:$USER /home/$USER
+RUN chmod -R 550 /home/$USER
+RUN chmod -x /home/$USER/fawn.jpg
+RUN touch /var/log/xinetdlog
+
+# Whatever port you configured in xinetd.
+# PROBABLY this should stay 1337. Just change
+# The passthrough port in docker-compose.yml below.
+EXPOSE 1337
+
+# Start the container by starting xinetd and outputting
+# the xinetd log for debugging.
+CMD service xinetd start && sleep 2 && tail -f /var/log/xinetdlog

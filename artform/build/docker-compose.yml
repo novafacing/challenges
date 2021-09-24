@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  artform-build:
+    container_name: artform-build
+    build:
+        dockerfile: ./build/Dockerfile-build
+        context: ../
+    logging:
+        driver: "json-file"
+    volumes:
+        - ../dist:/home/artform/build:Z
+    entrypoint: ["cp", "/home/artform/artform", "/home/artform/build/"]

@@ -1,0 +1,97 @@
+# Test comment
+# 0x43, 0x43, 0x43, 0x7b, 0x6d, 0x30, 
+# 0x6b, 0x33, 0x79, 0x7d
+# 0x7d
+push 0x3
+# Jump to here
+# tr occupied now
+pop
+# Loop logic
+# Get 0x47 & 0x4b
+push 0x2
+push 0x10
+lsl
+push 0x3
+add
+push 0x1
+push
+sub
+jmp nz bck 0xa
+pop
+pop
+push
+push
+push
+add
+pop
+push 0x10
+push 0xf
+lsl
+push 0xb
+push
+xor
+sub
+push
+xor
+push
+and
+push
+xor
+push 0x5
+push
+sub
+sub
+pop
+push
+push 0xb
+push 0xb
+add
+push
+xor
+pop
+push
+push
+push 0x3
+lsl
+push 0x11
+push 0x11
+push 0xe
+add
+add
+swp
+sub
+push
+push 0x6
+xor
+swp
+pop
+push
+swp
+push
+push 0x3
+add
+push 0x46
+#Jump here
+pop
+#Body Start
+push 0x1
+add
+#Body End
+push 0x1
+push
+sub
+jmp nz bck 0x7
+push
+push
+push
+push
+add
+add
+add
+add
+swp
+pop
+push
+swp
+push
+add

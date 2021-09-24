@@ -1,0 +1,9 @@
+[Unit]
+Description=guardian
+
+[Service]
+WorkingDirectory=/home/b01lers/circle-city-ctf-2021/rev/guardian/deploy
+ExecStart=/usr/bin/docker-compose up --project guardian --build
+
+[Install]
+WantedBy=multi-user.target

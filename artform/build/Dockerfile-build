@@ -1,0 +1,22 @@
+FROM ubuntu:20.04
+
+# Install dependencies
+RUN apt-get update
+RUN apt-get install -y build-essential
+RUN apt-get install -y gcc-multilib
+
+# Change example to the name of your challenge.
+# Set up the user
+ENV USER artform
+WORKDIR /home/$USER
+RUN useradd $USER
+
+# Add source files
+COPY ./src/$USER.c /home/$USER/
+COPY ./src/$USER.Makefile /home/$USER/Makefile
+
+# Copy the binary AND any libraries it depends on
+# into the build output directory
+RUN make -C /home/$USER/ && sh -c "ldd /home/$USER/$USER | grep '=>' | cut -d' ' -f3 | xargs -I '{}' cp -L -v '{}' /home/$USER/"
+
+CMD sleep 1

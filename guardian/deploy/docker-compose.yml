@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+    guardian:
+        container_name: guardian
+        build:
+            dockerfile: ./deploy/Dockerfile
+            context: ../
+        logging:
+            driver: "json-file"
+        ports:
+            - "2000:1337"
+
+    guardian-build:
+        container_name: guardian-build
+        build:
+            dockerfile: ./deploy/Dockerfile-build
+            context: ../
+        logging:
+            driver: "json-file"
+        volumes:
+            - ../dist:/home/guardian/build:Z
+        entrypoint: ["cp", "/home/guardian/guardian", "/home/guardian/build/"] 

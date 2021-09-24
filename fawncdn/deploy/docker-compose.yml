@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+    fawncdn:
+        container_name: fawncdn
+        build:
+            dockerfile: ./deploy/Dockerfile
+            context: ../
+        logging:
+            driver: "json-file"
+        ports:
+            - "1001:1337"
+
+    fawncdn-build:
+        container_name: fawncdn-build
+        build:
+            dockerfile: ./deploy/Dockerfile-build
+            context: ../
+        logging:
+            driver: "json-file"
+        volumes:
+            - ../dist:/home/fawncdn/build:Z
+        entrypoint: ["cp", "/home/fawncdn/fawncdn", "/home/fawncdn/build/"]

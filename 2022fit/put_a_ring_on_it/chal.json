@@ -1,0 +1,19 @@
+{
+    "author": "novafacing",
+    "description": "...",
+    "difficulty": "Easy",
+    "flag": "flag{round_and_round_we_go}",
+    "name": "put_a_ring_on_it",
+    "ports": [
+        1338
+    ],
+    "provides": [
+        "put_a_ring_on_it",
+        "libc.so.6"
+    ],
+    "remote": [
+        "docker-compose --project_name put_a_ring_on_it up --build"
+    ],
+    "target": null,
+    "type": "pwn"
+}

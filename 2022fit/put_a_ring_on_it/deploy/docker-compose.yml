@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+    put_a_ring_on_it:
+        container_name: put_a_ring_on_it
+        build:
+            dockerfile: ./deploy/Dockerfile
+            context: ../
+        logging:
+            driver: "json-file"
+        ports:
+            - "1338:1337"
+    put_a_ring_on_it-build:
+        container_name: put_a_ring_on_it-build
+        build:
+            dockerfile: ./deploy/Dockerfile-build
+            context: ../
+        logging:
+            driver: "json-file"
+        command: bash -c 'cp -av /home/put_a_ring_on_it/build/* /dist'
+        volumes:
+            - ../dist/:/dist

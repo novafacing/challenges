@@ -16,12 +16,19 @@ RUN useradd $USER
 COPY ./src/libc6_2.27-3ubuntu1.2_amd64.deb /tmp
 RUN dpkg -i /tmp/libc6_2.27-3ubuntu1.2_amd64.deb
 COPY ./src/$USER.c /home/$USER/
+COPY ./src/hexdump.c /home/$USER/
+COPY ./src/hexdump.h /home/$USER/
 COPY ./src/Makefile /home/$USER/Makefile
 
 # Copy the binary AND any libraries it depends on
 # into the build output directory
 RUN mkdir /home/$USER/build
-RUN make -C /home/$USER/ && cp /home/$USER/$USER /home/$USER/build/$USER && sh -c "ldd /home/$USER/build/$USER | grep '=>' | cut -d' ' -f3 | xargs -I '{}' cp -L -v '{}' /home/$USER/build/"
+RUN make -C /home/$USER/ && \
+    make -C /home/$USER/ debug && \
+    ls /home/$USER/ && \
+    cp /home/$USER/$USER /home/$USER/build/ && \
+    cp /home/$USER/put_a_ring_on_it_dbg /home/$USER/build/ && \
+    sh -c "ldd /home/$USER/build/$USER | grep '=>' | cut -d' ' -f3 | xargs -I '{}' cp -L -v '{}' /home/$USER/build/"
 
 RUN chown -R root:$USER /home/$USER
 RUN chmod -R 550 /home/$USER

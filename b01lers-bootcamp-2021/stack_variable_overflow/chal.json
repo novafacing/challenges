@@ -1,0 +1,19 @@
+{
+    "author": "novafacing",
+    "description": "How did we get locked out AGAIN",
+    "difficulty": "Easy",
+    "flag": "flag{0p3n_s3s4me}",
+    "name": "stack_variable_overflow",
+    "ports": [
+        1337
+    ],
+    "provides": [
+        "dist/stack_variable_overflow",
+        "dist/password.txt",
+        "dist/flag.txt"
+    ],
+    "remote": [
+        "cd deploy && docker-compose up --force-recreate --build"
+    ],
+    "type": "pwn"
+}

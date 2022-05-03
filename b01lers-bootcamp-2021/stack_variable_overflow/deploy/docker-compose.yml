@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+    stack_variable_overflow:
+        container_name: stack_variable_overflow
+        build:
+            dockerfile: ./deploy/Dockerfile
+            context: ../
+        logging:
+            driver: "json-file"
+        ports:
+            - "1337:1337"
+    stack_variable_overflow-build:
+        container_name: stack_variable_overflow-build
+        build:
+            dockerfile: ./deploy/Dockerfile-build
+            context: ../
+        logging:
+            driver: "json-file"
+        volumes:
+            - build:/home/stack_variable_overflow/build
+volumes:
+    build:
+        name: stack_variable_overflow-build

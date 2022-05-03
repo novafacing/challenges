@@ -1,0 +1,17 @@
+{
+    "author": "novafacing",
+    "description": "Return to your maker.",
+    "difficulty": "Easy",
+    "flag": "flag{shellcoder_i_barely_know_er}",
+    "name": "stack_ret2shellcode",
+    "ports": [
+        1339
+    ],
+    "provides": [
+        "chal/stack_ret2shellcode"
+    ],
+    "remote": [
+        "cd deploy && docker-compose up --build --force-recreate"
+    ],
+    "type": "pwn"
+}

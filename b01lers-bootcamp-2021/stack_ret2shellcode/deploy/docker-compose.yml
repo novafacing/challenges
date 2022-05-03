@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+    stack_ret2shellcode:
+        container_name: stack_ret2shellcode
+        build:
+            dockerfile: ./deploy/Dockerfile
+            context: ../
+        logging:
+            driver: "json-file"
+        ports:
+            - "1339:1337"
+    stack_ret2shellcode-build:
+        container_name: stack_ret2shellcode-build
+        build:
+            dockerfile: ./deploy/Dockerfile-build
+            context: ../
+        logging:
+            driver: "json-file"
+        volumes:
+            - build:/home/stack_ret2shellcode/build
+volumes:
+    build:
+        name: stack_ret2shellcode-build

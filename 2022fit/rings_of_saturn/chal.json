@@ -1,0 +1,19 @@
+{
+    "author": "novafacing",
+    "description": "...",
+    "difficulty": "Easy",
+    "flag": "flag{round_and_round_we_go}",
+    "name": "rings_of_saturn",
+    "ports": [
+        1338
+    ],
+    "provides": [
+        "rings_of_saturn",
+        "libc.so.6"
+    ],
+    "remote": [
+        "docker-compose --project_name rings_of_saturn up --build"
+    ],
+    "target": null,
+    "type": "pwn"
+}

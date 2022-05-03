@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+    rings_of_saturn:
+        container_name: rings_of_saturn
+        build:
+            dockerfile: ./deploy/Dockerfile
+            context: ../
+        logging:
+            driver: "json-file"
+        ports:
+            - "1338:1337"
+    rings_of_saturn-build:
+        container_name: rings_of_saturn-build
+        build:
+            dockerfile: ./deploy/Dockerfile-build
+            context: ../
+        logging:
+            driver: "json-file"
+        command: bash -c 'cp -av /home/rings_of_saturn/build/* /dist'
+        volumes:
+            - ../dist/:/dist
